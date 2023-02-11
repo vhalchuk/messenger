@@ -40,6 +40,8 @@ model User {
   emailVerified  DateTime?
   image          String?
   username       String?  @unique
+  messages       Message[]
+  conversations  ConversationParticipant[]
   accounts       Account[]
   sessions       Session[]
   createdAt      DateTime  @default(now())

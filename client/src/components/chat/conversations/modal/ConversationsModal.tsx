@@ -15,6 +15,7 @@ import {
     SearchUsersData,
     SearchUsersInput
 } from "@/util/types";
+import {useRouter} from "next/router";
 
 type ConversationsModalProps = {
     isOpen: boolean;
@@ -27,6 +28,8 @@ export const ConversationsModal: FC<ConversationsModalProps> = (
         onClose
     }
 ) => {
+    const router = useRouter();
+
     const [username, setUsername] = useState('');
     const [participants, setParticipants] = useState<SearchedUser[]>([]);
 
@@ -37,8 +40,6 @@ export const ConversationsModal: FC<ConversationsModalProps> = (
     const [createConversation, { loading: createConversationLoading }] = useMutation<CreateConversationData, CreateConversationInput>(
         ConversationOperations.Mutations.createConversation
     );
-
-
 
     const handleSubmit: FormEventHandler = async (event) => {
         event.preventDefault();
@@ -59,9 +60,23 @@ export const ConversationsModal: FC<ConversationsModalProps> = (
         const participantIds = participants.map(({ id }) => id);
 
         try {
-            const {} = await createConversation({
+            const { data } = await createConversation({
                 variables: { participantIds }
             });
+
+            if (!data?.createConversation) {
+                toast.error('Failed to crete conversation');
+
+                return;
+            }
+
+            const { createConversation: { conversationId } } = data;
+
+            router.push({ query: { conversationId } });
+
+            setParticipants([]);
+            setUsername('');
+            onClose();
         } catch (error: any) {
             if (error.message) {
                 toast.error(error.message);
