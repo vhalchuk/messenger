@@ -1,15 +1,13 @@
 import {type FC} from 'react';
-import {Button} from "@chakra-ui/react";
-import {signOut} from "next-auth/react";
+import {Flex} from "@chakra-ui/react";
+import {ConversationsWrapper} from "@/components/chat/conversations/ConversationsWrapper";
+import {FeedWrapper} from "@/components/chat/feed/FeedWrapper";
 
-type ChatProps = {
-
-}
-
-export const Chat: FC<ChatProps> = () => {
+export const Chat: FC = () => {
     return (
-        <div>
-            <Button onClick={() => signOut()}>Logout</Button>
-        </div>
+        <Flex height="100vh">
+            <ConversationsWrapper />
+            <FeedWrapper />
+        </Flex>
     );
 };

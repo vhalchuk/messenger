@@ -1,12 +1,14 @@
-const typeDefs = `#graphql
-    type User {
+import gql from "graphql-tag";
+
+const typeDefs = gql`
+    type SearchedUser {
         id: String
         username: String
     
     }
     
     type Query {
-        searchUsers(username: String): [User]
+        searchUsers(username: String): [SearchedUser]
     }
     
     type Mutation {
