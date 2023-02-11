@@ -1,19 +1,20 @@
 import {type FC, FormEventHandler, useState} from 'react';
 import {Input} from "@chakra-ui/input";
-import {Button, Stack, Text} from "@chakra-ui/react";
+import {Stack, Text} from "@chakra-ui/react";
+import {Button} from '@chakra-ui/button';
 import {useMutation} from "@apollo/client";
 import UserOperations from '@/graphql/operations/user';
 import type {CreateUsernameData, CreateUsernameVariables} from "@/util/types";
 import toast from "react-hot-toast";
-import { Spinner } from '@chakra-ui/react'
-import {CheckCircleIcon} from "@/components/auth/CheckCircleIcon";
 
 export const UsernameForm: FC = () => {
     const [username, setUsername] = useState('');
-    const [createUsername, { data, loading }] = useMutation<CreateUsernameData, CreateUsernameVariables>(UserOperations.Mutations.createUsername);
+    const [createUsername, { loading }] = useMutation<CreateUsernameData, CreateUsernameVariables>(
+        UserOperations.Mutations.createUsername
+    );
 
+    // workaround to make session get reloaded
     const reloadSession = () => {
-        // workaround to make session get reloaded
         const event = new Event('visibilitychange');
         document.dispatchEvent(event);
     }
@@ -22,7 +23,7 @@ export const UsernameForm: FC = () => {
         e.preventDefault();
 
         try {
-            const { data } = await createUsername(({ variables: { username } }));
+            const { data } = await createUsername({ variables: { username } });
 
             if (!data?.createUsername) {
                 toast.error('Something went wrong...');
@@ -43,9 +44,6 @@ export const UsernameForm: FC = () => {
         }
     }
 
-    const success = !!data?.createUsername.success;
-    const stale = !loading && !success;
-
     return (
         <form onSubmit={handleUsernameSubmit}>
             <Stack spacing={6} align="center">
@@ -60,10 +58,13 @@ export const UsernameForm: FC = () => {
                     type="text"
                     pattern="^\b\w+\b$"
                 />
-                <Button type="submit" width="100%">
-                    {stale && 'Save'}
-                    {loading && <Spinner />}
-                    {success && <CheckCircleIcon />}
+                <Button
+                    type="submit"
+                    width="100%"
+                    isLoading={loading}
+                    disabled
+                >
+                    Save
                 </Button>
             </Stack>
         </form>
