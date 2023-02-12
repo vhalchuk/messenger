@@ -1,10 +1,10 @@
 import {type FC} from 'react';
 import {useRouter} from "next/router";
 import {Flex} from "@chakra-ui/react";
+import {MessagesHeader} from "@/components/chat/feed/messages/MessagesHeader";
 
 export const FeedWrapper: FC = () => {
     const router = useRouter();
-
     const { conversationId } = router.query;
 
     return (
@@ -21,7 +21,7 @@ export const FeedWrapper: FC = () => {
                         overflow="hidden"
                         flexGrow={1}
                     >
-                        Feed
+                        <MessagesHeader />
                     </Flex>
                 </>
             ) : (

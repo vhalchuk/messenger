@@ -54,7 +54,7 @@ export const ConversationsWrapper: FC = () => {
             bg="whiteAlpha.50"
             py={6}
             px={3}
-            display={{ base: router.query.conversationId ? 'none' : 'none', md: 'block' }}
+            display={{ base: router.query.conversationId ? 'none' : 'block', md: 'block' }}
             flexShrink={0}
         >
             <Button
