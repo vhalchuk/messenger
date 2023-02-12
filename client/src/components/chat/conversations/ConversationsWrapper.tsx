@@ -8,8 +8,10 @@ import {ConversationPopulated} from '../../../../../server/src/util/types';
 import {Button} from "@chakra-ui/button";
 import {ConversationsModal} from "@/components/chat/conversations/modal/ConversationsModal";
 import {useCreateConversationModalContext} from "@/components/chat/conversations/modal/CreateConversationModalProvider";
+import {useRouter} from "next/router";
 
 export const ConversationsWrapper: FC = () => {
+    const router = useRouter();
     const {
         data: conversationsData,
         error: conversationsError,
@@ -36,6 +38,11 @@ export const ConversationsWrapper: FC = () => {
         subscribeToNewConversations();
     }, [subscribeToMore])
 
+    const viewConversation = async (conversationId: string) => {
+        router.push({ query: { conversationId }});
+
+    }
+
     const hasConversations = conversationsData && conversationsData?.conversations.length > 0;
 
     return (
@@ -47,18 +54,21 @@ export const ConversationsWrapper: FC = () => {
             bg="whiteAlpha.50"
             py={6}
             px={3}
+            display={{ base: router.query.conversationId ? 'none' : 'none', md: 'block' }}
+            flexShrink={0}
         >
             <Button
                 onClick={openModal}
                 width="100%"
+                mb={4}
             >
                 Find or start a conversation
             </Button>
             <ConversationsModal />
-
             {hasConversations && (
                 <ConversationsList
                     conversations={conversationsData.conversations}
+                    onViewConversation={viewConversation}
                 />
             )}
         </Box>
