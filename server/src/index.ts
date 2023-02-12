@@ -9,23 +9,58 @@ import {makeExecutableSchema} from '@graphql-tools/schema'
 import {ApolloServerPluginDrainHttpServer} from '@apollo/server/plugin/drainHttpServer';
 import {expressMiddleware} from "@apollo/server/express4";
 import * as dotenv from 'dotenv';
-import {GraphQLContext} from "./util/types";
+import {GraphQLContext, SubscriptionContext} from "./util/types";
 import {PrismaClient} from "@prisma/client";
 import {getSession} from "next-auth/react";
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+import { PubSub } from 'graphql-subscriptions';
 
 dotenv.config();
 
 const app = express();
 const httpServer = http.createServer(app);
 
+const prisma = new PrismaClient();
+const pubsub = new PubSub();
+
 const schema = makeExecutableSchema({
     typeDefs,
     resolvers
 })
 
+const wsServer = new WebSocketServer({
+    server: httpServer,
+    path: '/graphql/subscriptions',
+});
+
+const serverCleanup = useServer({
+    schema,
+    context: async (ctx: SubscriptionContext): Promise<GraphQLContext> => {
+        const { session } = ctx.connectionParams;
+
+        return {
+            session,
+            prisma,
+            pubsub,
+        }
+    }
+}, wsServer);
+
 const server = new ApolloServer({
     schema,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [
+        ApolloServerPluginDrainHttpServer({ httpServer }),
+        {
+            async serverWillStart() {
+                return {
+                    async drainServer() {
+                        await serverCleanup.dispose();
+                    },
+                };
+            },
+        },
+    ],
 });
 await server.start();
 
@@ -33,8 +68,6 @@ const corsOptions = {
     origin: process.env.CLIENT_ORIGIN,
     credentials: true,
 }
-
-const prisma = new PrismaClient();
 
 app.use(
     '/graphql',
@@ -47,6 +80,7 @@ app.use(
             return {
                 session,
                 prisma,
+                pubsub,
             }
         }
     }),
