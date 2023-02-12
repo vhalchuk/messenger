@@ -63,7 +63,6 @@ const resolvers = {
                     },
                 });
             } catch (error: any) {
-                console.log("messages error", error);
                 throw new GraphQLError(error?.message);
             }
         },
