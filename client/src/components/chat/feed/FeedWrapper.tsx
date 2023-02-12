@@ -4,6 +4,7 @@ import {Flex} from "@chakra-ui/react";
 import {MessagesHeader} from "@/components/chat/feed/messages/MessagesHeader";
 import {MessageInput} from "@/components/chat/feed/messages/MessageInput";
 import {Messages} from "@/components/chat/feed/messages/Messages";
+import {NoConversationSelected} from "@/components/chat/feed/NoConversationSelected";
 
 export const FeedWrapper: FC = () => {
     const router = useRouter();
@@ -29,7 +30,7 @@ export const FeedWrapper: FC = () => {
                     <MessageInput />
                 </>
             ) : (
-                'NoConversationSelected'
+                <NoConversationSelected />
             )}
         </Flex>
     );

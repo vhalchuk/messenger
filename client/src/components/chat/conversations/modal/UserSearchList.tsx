@@ -61,7 +61,7 @@ export const UserSearchList: FC<UserSearchListProps> = (
                                 ) : (
                                 <Button
                                     bg="brand.100"
-                                    _hover={{ bg: "brand.100" }}
+                                    _hover={{ bg: "brand.200" }}
                                     onClick={() => onAddUser(user)}
                                 >
                                     Select

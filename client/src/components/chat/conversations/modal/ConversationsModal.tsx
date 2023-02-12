@@ -112,7 +112,7 @@ export const ConversationsModal: FC = () => {
                                         bg="brand.100"
                                         width="100%"
                                         mt={6}
-                                        _hover={{ bg: 'brand.100' }}
+                                        _hover={{ bg: 'brand.200' }}
                                         onClick={handleCreateConversation}
                                         isLoading={createConversationLoading}
                                     >

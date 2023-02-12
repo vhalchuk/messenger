@@ -30,7 +30,7 @@ export const NoConversationSelected: FC = () => {
                 {hasConversations ? (
                     <BiMessageSquareDots fontSize={90} />
                 ) : (
-                    <Button bg="brand.100" onClick={openModal}>
+                    <Button bg="brand.100" _hover={{ bg: 'brand.200' }} onClick={openModal}>
                         Create Conversation
                     </Button>
                 )}
