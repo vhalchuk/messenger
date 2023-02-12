@@ -28,3 +28,7 @@ export type SubscriptionContext = Context & {
         session?: Session;
     }
 }
+
+export type ConversationCreatedSubscriptionPayload = {
+    conversationCrated: ConversationPopulated;
+}

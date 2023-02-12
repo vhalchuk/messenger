@@ -1,6 +1,7 @@
-import {ConversationPopulated, GraphQLContext} from "../../util/types";
+import {ConversationCreatedSubscriptionPayload, ConversationPopulated, GraphQLContext} from "../../util/types";
 import {GraphQLError} from "graphql/error";
 import {Prisma} from "@prisma/client";
+import {withFilter} from "graphql-subscriptions";
 
 const resolvers = {
     Query: {
@@ -35,7 +36,7 @@ const resolvers = {
             context: GraphQLContext
         ): Promise<{ conversationId: string }> => {
             const { participantIds } = args;
-            const { session, prisma } = context;
+            const { session, prisma, pubsub } = context;
 
             if (!session?.user) {
                 throw new GraphQLError('Not authorized');
@@ -57,11 +58,32 @@ const resolvers = {
                 include: conversationPopulated,
             });
 
+            pubsub.publish('CONVERSATION_CREATED', {
+                conversationCreated: conversation
+            })
+
             return {
                 conversationId: conversation.id
             }
         }
     },
+    Subscription: {
+        conversationCreated: {
+            subscribe: withFilter(
+                (_, __, context: GraphQLContext) => {
+                    const { pubsub } = context;
+
+                    return pubsub.asyncIterator(['CONVERSATION_CREATED']);
+                },
+                (payload: ConversationCreatedSubscriptionPayload, _, context: GraphQLContext) => {
+                    const { participants } = payload.conversationCrated;
+                    const { session } = context;
+
+                    return participants.some((p) => p.userId === session?.user.id);
+                }
+            ),
+        }
+    }
 }
 
 export const participantPopulated = Prisma.validator<Prisma.ConversationParticipantInclude>()({

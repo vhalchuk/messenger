@@ -11,7 +11,7 @@ const httpLink = new HttpLink({
 });
 
 const wsLink = typeof window !== 'undefined'? new GraphQLWsLink(createClient({
-    url: env.NEXT_PUBLIC_API_URI + '/subscriptions',
+    url: env.NEXT_PUBLIC_WS_URI,
     connectionParams: async () => ({
         session: await getSession()
     })
