@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {Flex} from "@chakra-ui/react";
 import {MessagesHeader} from "@/components/chat/feed/messages/MessagesHeader";
 import {MessageInput} from "@/components/chat/feed/messages/MessageInput";
+import {Messages} from "@/components/chat/feed/messages/Messages";
 
 export const FeedWrapper: FC = () => {
     const router = useRouter();
@@ -23,6 +24,7 @@ export const FeedWrapper: FC = () => {
                         flexGrow={1}
                     >
                         <MessagesHeader />
+                        <Messages />
                     </Flex>
                     <MessageInput />
                 </>
