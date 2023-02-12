@@ -1,18 +1,21 @@
-import {type FC, useState} from 'react';
+import {type FC} from 'react';
 import {Box} from "@chakra-ui/react";
 import {ConversationsModal} from "@/components/chat/conversations/modal/ConversationsModal";
 import {Button} from "@chakra-ui/button";
+import {useCreateConversationModalContext} from "@/components/chat/conversations/modal/CreateConversationModalProvider";
+import {ConversationPopulated} from '../../../../../server/src/util/types';
+import {ConversationItem} from "@/components/chat/conversations/ConversationItem";
 
-export const ConversationsList: FC = () => {
-    const [isModalOpen ,setIsModalOpen] = useState(false);
+type ConversationsListProps = {
+    conversations: ConversationPopulated[]
+}
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
+export const ConversationsList: FC<ConversationsListProps> = (
+    {
+        conversations
     }
+) => {
+    const { openModal } = useCreateConversationModalContext();
 
     return (
         <Box width='100%'>
@@ -22,10 +25,10 @@ export const ConversationsList: FC = () => {
             >
                 Find or start a conversation
             </Button>
-            <ConversationsModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-            />
+            <ConversationsModal />
+            {conversations.map((conversation) => (
+                <ConversationItem conversation={conversation} key={conversation.id} />
+            ))}
         </Box>
     );
 };

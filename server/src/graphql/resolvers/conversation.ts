@@ -1,9 +1,33 @@
-import {GraphQLContext} from "../../util/types";
+import {ConversationPopulated, GraphQLContext} from "../../util/types";
 import {GraphQLError} from "graphql/error";
 import {Prisma} from "@prisma/client";
 
 const resolvers = {
-    Query: {},
+    Query: {
+        conversations: async (
+            _,
+            __,
+            context: GraphQLContext
+        ): Promise<ConversationPopulated[]> => {
+            const { session, prisma } = context;
+
+            if (!session?.user) {
+                throw new GraphQLError('Not authorized');
+            }
+
+            try {
+                const conversations = await prisma.conversation.findMany({
+                    include: conversationPopulated
+                });
+
+                // prisma issue does not let to filter it properly, so it has to be done this way
+                return conversations.filter((conversation) =>
+                    conversation.participants.find((p) => p.userId === session.user.id));
+            } catch (error: any) {
+                throw new GraphQLError(error?.messsage);
+            }
+        }
+    },
     Mutation: {
         createConversation: async (
             _,

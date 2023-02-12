@@ -16,20 +16,12 @@ import {
     SearchUsersInput
 } from "@/util/types";
 import {useRouter} from "next/router";
+import {useCreateConversationModalContext} from "@/components/chat/conversations/modal/CreateConversationModalProvider";
 
-type ConversationsModalProps = {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-export const ConversationsModal: FC<ConversationsModalProps> = (
-    {
-        isOpen,
-        onClose
-    }
-) => {
+export const ConversationsModal: FC = () => {
     const router = useRouter();
 
+    const { isOpen, closeModal } = useCreateConversationModalContext();
     const [username, setUsername] = useState('');
     const [participants, setParticipants] = useState<SearchedUser[]>([]);
 
@@ -76,7 +68,7 @@ export const ConversationsModal: FC<ConversationsModalProps> = (
 
             setParticipants([]);
             setUsername('');
-            onClose();
+            closeModal();
         } catch (error: any) {
             if (error.message) {
                 toast.error(error.message);
@@ -85,7 +77,7 @@ export const ConversationsModal: FC<ConversationsModalProps> = (
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent bg="#2d2d2d" pb={4}>
                 <ModalHeader>Create a conversation</ModalHeader>

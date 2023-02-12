@@ -1,3 +1,5 @@
+import { ConversationPopulated } from '../../../server/src/util/types';
+
 export type CreateUsernameData = {
     createUsername: {
         success: boolean;
@@ -20,6 +22,10 @@ export type SearchUsersData = {
 export type SearchedUser = {
     id: string;
     username: string;
+}
+
+export type ConversationsData = {
+    conversations: ConversationPopulated[];
 }
 
 export type CreateConversationData = {
