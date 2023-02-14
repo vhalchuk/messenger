@@ -1,9 +1,9 @@
 import type {AppProps} from 'next/app'
 import {SessionProvider} from "next-auth/react";
 import {ChakraProvider} from "@chakra-ui/react";
-import {theme} from "@/chakra/theme";
+import {theme} from "@/app/chakra";
 import {ApolloProvider} from "@apollo/client";
-import {client} from "@/graphql/apollo-client";
+import {client} from "@/app/apollo-client";
 import {Toaster} from "react-hot-toast";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {

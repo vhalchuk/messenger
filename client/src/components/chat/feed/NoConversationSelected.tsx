@@ -1,16 +1,14 @@
 import {type FC} from 'react';
 import {Flex, Stack, Text} from "@chakra-ui/react";
-import { BiMessageSquareDots } from "react-icons/bi";
+import {BiMessageSquareDots} from "react-icons/bi";
 import {Button} from "@chakra-ui/button";
 import {useQuery} from "@apollo/client";
 import {useCreateConversationModalContext} from "@/components/chat/conversations/modal/CreateConversationModalProvider";
-import {ConversationsData} from "@/util/types";
-import ConversationOperations from '@/graphql/operations/conversation';
+import {ConversationsData} from "@/shared/types/conversationTypes";
+import {GET_CONVERSATIONS} from "@/entities/conversation";
 
 export const NoConversationSelected: FC = () => {
-    const { data, loading, error } = useQuery<ConversationsData>(
-        ConversationOperations.Queries.conversations
-    );
+    const { data, loading, error } = useQuery<ConversationsData>(GET_CONVERSATIONS);
     const { openModal } = useCreateConversationModalContext();
 
     if (!data?.conversations || loading || error) return null;

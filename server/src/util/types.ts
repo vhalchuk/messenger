@@ -1,4 +1,4 @@
-import {Session} from "next-auth";
+import {type Session} from "next-auth";
 import {Prisma, PrismaClient} from "@prisma/client";
 import {conversationPopulated, participantPopulated} from "../graphql/resolvers/conversation";
 import {Context} from 'graphql-ws/lib/server'

@@ -1,6 +1,6 @@
 import {type FC} from 'react';
 import {signIn} from "next-auth/react";
-import {GoogleLogo} from "@/components/auth/GoogleLogo";
+import {GoogleLogo} from "@/shared/icons/GoogleLogo";
 import {Button} from "@chakra-ui/react";
 
 export const SignInButton: FC = () => {

@@ -3,15 +3,13 @@ import {Input} from "@chakra-ui/input";
 import {Stack, Text} from "@chakra-ui/react";
 import {Button} from '@chakra-ui/button';
 import {useMutation} from "@apollo/client";
-import UserOperations from '@/graphql/operations/user';
-import type {CreateUsernameData, CreateUsernameVariables} from "@/util/types";
 import toast from "react-hot-toast";
+import {CreateUsernameData, CreateUsernameVariables} from "@/shared/types/userTypes";
+import {CREATE_USERNAME} from "@/entities/user";
 
 export const UsernameForm: FC = () => {
     const [username, setUsername] = useState('');
-    const [createUsername, { loading }] = useMutation<CreateUsernameData, CreateUsernameVariables>(
-        UserOperations.Mutations.createUsername
-    );
+    const [createUsername, { loading }] = useMutation<CreateUsernameData, CreateUsernameVariables>(CREATE_USERNAME);
 
     // workaround to make session get reloaded
     const reloadSession = () => {

@@ -3,19 +3,17 @@ import { useQuery } from "@apollo/client";
 import { Button, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import ConversationOperations from "@/graphql/operations/conversation";
-import { formatUsernames } from "@/util/functions";
-import { ConversationsData } from "@/util/types";
-import {env} from "@/env/client.mjs";
+import { formatUsernames } from "@/entities/conversation/lib/formatUsernames";
+import {env} from "@/shared/env/client.mjs";
 import {useSession} from "next-auth/react";
+import {ConversationsData} from "@/shared/types/conversationTypes";
+import {GET_CONVERSATIONS} from "@/entities/conversation";
 
 export const MessagesHeader: FC = () => {
     const router = useRouter();
     const { conversationId } = router.query;
     const { data: session } = useSession();
-    const { data, loading } = useQuery<ConversationsData>(
-        ConversationOperations.Queries.conversations
-    );
+    const { data, loading } = useQuery<ConversationsData>(GET_CONVERSATIONS);
 
     const conversation = data?.conversations.find(
         (conversation) => conversation.id === conversationId

@@ -1,12 +1,12 @@
 import {type FC, useState} from 'react';
-import { useMutation } from "@apollo/client";
-import { Box, Input } from "@chakra-ui/react";
-import { ObjectID } from "bson";
+import {useMutation} from "@apollo/client";
+import {Box, Input} from "@chakra-ui/react";
+import {ObjectID} from "bson";
 import toast from "react-hot-toast";
-import MessageOperations from "@/graphql/operations/message";
-import { MessagesData, SendMessageVariables } from "@/util/types";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
+import {MessagesData, SendMessageVariables} from "@/shared/types/messageTypes";
+import {GET_MESSAGES, SEND_MESSAGE} from "@/entities/message";
 
 export const MessageInput: FC = () => {
     const conversationId = useRouter().query.conversationId as string;
@@ -18,7 +18,7 @@ export const MessageInput: FC = () => {
     const [sendMessage] = useMutation<
         { sendMessage: boolean },
         SendMessageVariables
-    >(MessageOperations.Mutations.sendMessage);
+    >(SEND_MESSAGE);
 
     const onSendMessage = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -42,12 +42,12 @@ export const MessageInput: FC = () => {
                 update: (cache) => {
                     setMessageBody("");
                     const existing = cache.readQuery<MessagesData>({
-                        query: MessageOperations.Query.messages,
+                        query: GET_MESSAGES,
                         variables: { conversationId },
                     }) as MessagesData;
 
                     cache.writeQuery<MessagesData, { conversationId: string }>({
-                        query: MessageOperations.Query.messages,
+                        query: GET_MESSAGES,
                         variables: { conversationId },
                         data: {
                             ...existing,

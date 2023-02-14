@@ -16,7 +16,7 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { MdDeleteOutline } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { AiOutlineEdit } from "react-icons/ai";
-import {formatUsernames} from "@/util/functions";
+import {formatUsernames} from "@/entities/conversation";
 import {useSession} from "next-auth/react";
 
 const formatRelativeLocale = {

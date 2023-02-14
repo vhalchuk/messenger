@@ -3,20 +3,15 @@ import {Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOver
 import {Input, Stack} from "@chakra-ui/react";
 import {Button} from "@chakra-ui/button";
 import {useLazyQuery, useMutation} from "@apollo/client";
-import UserOperations from '@/graphql/operations/user';
 import {UserSearchList} from "@/components/chat/conversations/modal/UserSearchList";
 import {Participants} from "@/components/chat/conversations/modal/Participants";
-import ConversationOperations from '@/graphql/operations/conversation';
 import toast from "react-hot-toast";
-import {
-    CreateConversationData,
-    CreateConversationInput,
-    SearchedUser,
-    SearchUsersData,
-    SearchUsersInput
-} from "@/util/types";
 import {useRouter} from "next/router";
 import {useCreateConversationModalContext} from "@/components/chat/conversations/modal/CreateConversationModalProvider";
+import {SearchedUser, SearchUsersData, SearchUsersInput} from "@/shared/types/userTypes";
+import {CreateConversationData, CreateConversationInput} from "@/shared/types/conversationTypes";
+import {CREATE_CONVERSATION} from "@/entities/conversation";
+import {GET_USERS} from "@/entities/user";
 
 export const ConversationsModal: FC = () => {
     const router = useRouter();
@@ -28,9 +23,9 @@ export const ConversationsModal: FC = () => {
     const [searchUsers, { data, loading }] = useLazyQuery<
         SearchUsersData,
         SearchUsersInput
-    >(UserOperations.Queries.searchUsers);
+    >(GET_USERS);
     const [createConversation, { loading: createConversationLoading }] = useMutation<CreateConversationData, CreateConversationInput>(
-        ConversationOperations.Mutations.createConversation
+        CREATE_CONVERSATION
     );
 
     const handleSubmit: FormEventHandler = async (event) => {
