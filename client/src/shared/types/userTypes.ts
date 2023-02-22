@@ -1,23 +1,23 @@
 export type CreateUsernameData = {
-    createUsername: {
-        success: boolean;
-        error: string;
-    };
-}
+  createUsername: {
+    success: boolean;
+    error: string;
+  };
+};
 
 export type CreateUsernameVariables = {
-    username: string;
-}
+  username: string;
+};
 
 export type SearchUsersInput = {
-    username: string;
-}
+  username: string;
+};
 
 export type SearchUsersData = {
-    searchUsers: SearchedUser[]
-}
+  searchUsers: SearchedUser[];
+};
 
 export type SearchedUser = {
-    id: string;
-    username: string;
-}
+  id: string;
+  username: string;
+};

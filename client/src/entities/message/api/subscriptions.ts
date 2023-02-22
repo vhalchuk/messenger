@@ -1,5 +1,5 @@
-import {gql} from "@apollo/client";
-import {messageFields} from "../config/messageFields";
+import { gql } from '@apollo/client';
+import { messageFields } from '../config/messageFields';
 
 export const MESSAGE_SENT = gql`
     subscription MessageSent($conversationId: String!) {

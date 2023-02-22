@@ -1,24 +1,24 @@
 import { MessagePopulated } from '../../../../server/src/util/types';
 
 export interface MessagesData {
-    messages: Array<MessagePopulated>;
+  messages: Array<MessagePopulated>;
 }
 
 export interface MessagesVariables {
-    conversationId: string;
+  conversationId: string;
 }
 
 export interface SendMessageVariables {
-    id: string;
-    conversationId: string;
-    senderId: string;
-    body: string;
+  id: string;
+  conversationId: string;
+  senderId: string;
+  body: string;
 }
 
 export interface MessagesSubscriptionData {
-    subscriptionData: {
-        data: {
-            messageSent: MessagePopulated;
-        };
+  subscriptionData: {
+    data: {
+      messageSent: MessagePopulated;
     };
+  };
 }

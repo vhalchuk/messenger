@@ -1,14 +1,14 @@
-import {ConversationPopulated} from '../../../../server/src/util/types';
+import { ConversationPopulated } from '../../../../server/src/util/types';
 
 export type ConversationsData = {
-    conversations: ConversationPopulated[];
-}
+  conversations: ConversationPopulated[];
+};
 
 export type CreateConversationData = {
-    createConversation: {
-        conversationId: string;
-    }
-}
+  createConversation: {
+    conversationId: string;
+  };
+};
 export type CreateConversationInput = {
-    participantIds: string[];
-}
+  participantIds: string[];
+};
