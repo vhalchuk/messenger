@@ -59,7 +59,7 @@ export const MessageInput: FC = () => {
                                     conversationId,
                                     sender: {
                                         id: user.id,
-                                        username: user.username,
+                                        username: user.username!,
                                     },
                                     createdAt: new Date(Date.now()),
                                     updatedAt: new Date(Date.now()),

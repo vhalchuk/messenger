@@ -1,5 +1,5 @@
 import {type FC} from 'react';
-import { MessagePopulated } from "../../../../../../server/src/util/types";
+import { MessagePopulated } from "../../../../../server/src/util/types";
 import { formatRelative } from "date-fns";
 import enUS from "date-fns/locale/en-US";
 import { Avatar, Box, Flex, Stack, Text } from "@chakra-ui/react";

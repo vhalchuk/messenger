@@ -1,21 +1,17 @@
 import {type FC, FormEventHandler, useState} from 'react';
-import {Input} from "@chakra-ui/input";
-import {Stack, Text} from "@chakra-ui/react";
-import {Button} from '@chakra-ui/button';
+import { useRouter } from 'next/router'
 import {useMutation} from "@apollo/client";
-import toast from "react-hot-toast";
 import {CreateUsernameData, CreateUsernameVariables} from "@/shared/types/userTypes";
 import {CREATE_USERNAME} from "@/entities/user";
+import toast from "react-hot-toast";
+import {Stack, Text} from "@chakra-ui/react";
+import {Input} from "@chakra-ui/input";
+import {Button} from "@chakra-ui/button";
 
-export const UsernameForm: FC = () => {
+export const CreateUsername: FC = () => {
+    const router = useRouter();
     const [username, setUsername] = useState('');
     const [createUsername, { loading }] = useMutation<CreateUsernameData, CreateUsernameVariables>(CREATE_USERNAME);
-
-    // workaround to make session get reloaded
-    const reloadSession = () => {
-        const event = new Event('visibilitychange');
-        document.dispatchEvent(event);
-    }
 
     const handleUsernameSubmit: FormEventHandler = async (e) => {
         e.preventDefault();
@@ -33,8 +29,8 @@ export const UsernameForm: FC = () => {
                 return;
             }
 
-            reloadSession();
             toast.success('Username successfully created');
+            router.push('/');
         } catch (error: unknown) {
             if (error?.hasOwnProperty('message')) {
                 toast.error((error as { message: string }).message);

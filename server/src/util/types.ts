@@ -31,7 +31,7 @@ export type SubscriptionContext = Context & {
 }
 
 export type ConversationCreatedSubscriptionPayload = {
-    conversationCrated: ConversationPopulated;
+    conversationCreated: ConversationPopulated;
 }
 
 export interface SendMessageArguments {

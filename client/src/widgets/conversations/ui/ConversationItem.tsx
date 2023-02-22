@@ -1,23 +1,12 @@
-import {type FC, useState} from 'react';
-import { ConversationPopulated } from '../../../../../server/src/util/types';
-import {
-    Avatar,
-    Box,
-    Flex,
-    Menu,
-    MenuItem,
-    MenuList,
-    Stack,
-    Text,
-} from "@chakra-ui/react";
-import { formatRelative } from "date-fns";
-import enUS from "date-fns/locale/en-US";
-import { GoPrimitiveDot } from "react-icons/go";
-import { MdDeleteOutline } from "react-icons/md";
-import { BiLogOut } from "react-icons/bi";
-import { AiOutlineEdit } from "react-icons/ai";
-import {formatUsernames} from "@/entities/conversation";
+import {FC, useState} from "react";
 import {useSession} from "next-auth/react";
+import {Avatar, Box, Flex, Stack, Text} from "@chakra-ui/react";
+import {ConversationContextMenu} from "./ConversationContextMenu";
+import {GoPrimitiveDot} from "react-icons/go";
+import {formatUsernames} from "@/entities/conversation";
+import {formatRelative} from "date-fns";
+import enUS from "date-fns/locale/en-US";
+import {ConversationPopulated} from '../../../../../server/src/util/types';
 
 const formatRelativeLocale = {
     lastWeek: "eeee",
@@ -29,9 +18,9 @@ const formatRelativeLocale = {
 type ConversationItemProps = {
     conversation: ConversationPopulated;
     onClick: () => void;
-    onEditConversation?: () => void;
     hasSeenLatestMessage?: boolean;
     isSelected?: boolean;
+    onEditConversation?: () => void;
     onDeleteConversation?: (conversationId: string) => void;
     onLeaveConversation?: (conversation: ConversationPopulated) => void;
 }
@@ -80,40 +69,11 @@ export const ConversationItem: FC<ConversationItemProps> = (
             position="relative"
         >
             {showMenu && (
-                <Menu isOpen={menuOpen} onClose={() => setMenuOpen(false)}>
-                    <MenuList bg="#2d2d2d">
-                        <MenuItem
-                            icon={<AiOutlineEdit fontSize={20} />}
-                            onClick={(event) => {
-                                event.stopPropagation();
-                                onEditConversation();
-                            }}
-                        >
-                            Edit
-                        </MenuItem>
-                        {conversation.participants.length > 2 ? (
-                            <MenuItem
-                                icon={<BiLogOut fontSize={20} />}
-                                onClick={(event) => {
-                                    event.stopPropagation();
-                                    onLeaveConversation(conversation);
-                                }}
-                            >
-                                Leave
-                            </MenuItem>
-                        ) : (
-                            <MenuItem
-                                icon={<MdDeleteOutline fontSize={20} />}
-                                onClick={(event) => {
-                                    event.stopPropagation();
-                                    onDeleteConversation(conversation.id);
-                                }}
-                            >
-                                Delete
-                            </MenuItem>
-                        )}
-                    </MenuList>
-                </Menu>
+                <ConversationContextMenu
+                    isOpen={menuOpen}
+                    onClose={() => setMenuOpen(false)}
+                    conversationId={conversation.id}
+                />
             )}
             <Flex position="absolute" left="-6px">
                 {hasSeenLatestMessage === false && (

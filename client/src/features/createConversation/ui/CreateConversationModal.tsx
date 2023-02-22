@@ -2,21 +2,29 @@ import {type FC, FormEventHandler, useState} from 'react';
 import {Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay} from "@chakra-ui/modal";
 import {Input, Stack} from "@chakra-ui/react";
 import {Button} from "@chakra-ui/button";
-import {useLazyQuery, useMutation} from "@apollo/client";
-import {UserSearchList} from "@/components/chat/conversations/modal/UserSearchList";
-import {Participants} from "@/components/chat/conversations/modal/Participants";
-import toast from "react-hot-toast";
 import {useRouter} from "next/router";
-import {useCreateConversationModalContext} from "@/components/chat/conversations/modal/CreateConversationModalProvider";
 import {SearchedUser, SearchUsersData, SearchUsersInput} from "@/shared/types/userTypes";
+import {useLazyQuery, useMutation} from "@apollo/client";
+import {GET_USERS} from "@/entities/user";
 import {CreateConversationData, CreateConversationInput} from "@/shared/types/conversationTypes";
 import {CREATE_CONVERSATION} from "@/entities/conversation";
-import {GET_USERS} from "@/entities/user";
+import toast from "react-hot-toast";
+import {UserSearchList} from "./UserSearchList";
+import {Participants} from "./Participants";
 
-export const ConversationsModal: FC = () => {
+type CreateConversationModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const CreateConversationModal: FC<CreateConversationModalProps> = (
+    {
+        isOpen,
+        onClose,
+    }
+) => {
     const router = useRouter();
 
-    const { isOpen, closeModal } = useCreateConversationModalContext();
     const [username, setUsername] = useState('');
     const [participants, setParticipants] = useState<SearchedUser[]>([]);
 
@@ -31,7 +39,6 @@ export const ConversationsModal: FC = () => {
     const handleSubmit: FormEventHandler = async (event) => {
         event.preventDefault();
 
-        console.log('username', username)
         searchUsers({ variables: { username } });
     }
 
@@ -63,7 +70,7 @@ export const ConversationsModal: FC = () => {
 
             setParticipants([]);
             setUsername('');
-            closeModal();
+            onClose();
         } catch (error: any) {
             if (error.message) {
                 toast.error(error.message);
@@ -72,7 +79,7 @@ export const ConversationsModal: FC = () => {
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent bg="#2d2d2d" pb={4}>
                 <ModalHeader>Create a conversation</ModalHeader>

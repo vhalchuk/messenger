@@ -1,21 +1,33 @@
 import type {NextPage, NextPageContext} from 'next';
-import {getSession, useSession} from 'next-auth/react'
-import {Box} from "@chakra-ui/react";
-import {Chat} from "@/components/chat/Chat";
-import {Auth} from "@/components/auth/Auth";
+import {getSession} from 'next-auth/react'
+import {ColumnsLayout} from "@/shared/layout";
+import {ConversationsWidget} from "@/widgets/conversations/ui/ConversationsWidget";
+import {MessagesWidget} from "@/widgets/messages/ui/MessagesWidget";
 
 const Home: NextPage = () => {
-    const { data } = useSession();
-
     return (
-        <Box>
-            {data?.user.username ? <Chat /> : <Auth />}
-        </Box>
+        <ColumnsLayout>
+            <ColumnsLayout.LeftColumn>
+                <ConversationsWidget />
+            </ColumnsLayout.LeftColumn>
+            <ColumnsLayout.RightColumn>
+                <MessagesWidget />
+            </ColumnsLayout.RightColumn>
+        </ColumnsLayout>
     );
 }
 
 export async function getServerSideProps(context: NextPageContext) {
     const session = await getSession(context);
+
+    if (!session?.user?.username) {
+        return {
+            redirect: {
+                destination: '/onboarding',
+                permanent: false,
+            }
+        }
+    }
 
     return {
         props: {

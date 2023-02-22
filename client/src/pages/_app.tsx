@@ -1,6 +1,6 @@
 import type {AppProps} from 'next/app'
 import {SessionProvider} from "next-auth/react";
-import {ChakraProvider} from "@chakra-ui/react";
+import {Box, ChakraProvider} from "@chakra-ui/react";
 import {theme} from "@/app/chakra";
 import {ApolloProvider} from "@apollo/client";
 import {client} from "@/app/apollo-client";
@@ -11,7 +11,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <ApolloProvider client={client}>
           <SessionProvider session={session}>
               <ChakraProvider theme={theme}>
-                  <Component {...pageProps} />
+                  <Box height="100dvh">
+                      <Component {...pageProps} />
+                  </Box>
                   <Toaster />
               </ChakraProvider>
           </SessionProvider>

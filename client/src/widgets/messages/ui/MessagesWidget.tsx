@@ -1,22 +1,25 @@
 import {type FC} from 'react';
 import {useRouter} from "next/router";
 import {Flex} from "@chakra-ui/react";
-import {MessagesHeader} from "@/components/chat/feed/messages/MessagesHeader";
-import {MessageInput} from "@/components/chat/feed/messages/MessageInput";
-import {Messages} from "@/components/chat/feed/messages/Messages";
-import {NoConversationSelected} from "@/components/chat/feed/NoConversationSelected";
+import {MessagesHeader} from "./MessagesHeader";
+import {Messages} from "./Messages";
+import {MessageInput} from "./MessageInput";
 
-export const FeedWrapper: FC = () => {
+export const MessagesWidget: FC = () => {
     const router = useRouter();
     const { conversationId } = router.query;
 
     return (
         <Flex
-            display={{ base: conversationId ? "flex" : "none", md: "flex" }}
+            display={{
+                base: conversationId ? "flex" : "none",
+                md: "flex"
+            }}
             direction="column"
             width="100%"
+            height="100%"
         >
-            {conversationId && typeof conversationId === "string" ? (
+            {conversationId && (
                 <>
                     <Flex
                         direction="column"
@@ -29,8 +32,6 @@ export const FeedWrapper: FC = () => {
                     </Flex>
                     <MessageInput />
                 </>
-            ) : (
-                <NoConversationSelected />
             )}
         </Flex>
     );

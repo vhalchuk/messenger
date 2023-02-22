@@ -58,7 +58,7 @@ const resolvers = {
                 include: conversationPopulated,
             });
 
-            pubsub.publish('CONVERSATION_CREATED', {
+            await pubsub.publish('CONVERSATION_CREATED', {
                 conversationCreated: conversation
             })
 
@@ -76,7 +76,7 @@ const resolvers = {
                     return pubsub.asyncIterator(['CONVERSATION_CREATED']);
                 },
                 (payload: ConversationCreatedSubscriptionPayload, _, context: GraphQLContext) => {
-                    const { participants } = payload.conversationCrated;
+                    const { participants } = payload.conversationCreated;
                     const { session } = context;
 
                     return participants.some((p) => p.userId === session?.user.id);
