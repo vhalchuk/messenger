@@ -8,7 +8,7 @@ import {ConversationsList} from "@/widgets/conversations/ui/ConversationsList";
 
 export const ConversationsWidget: FC = () => {
     const {
-        data: conversationsData,
+        data,
         subscribeToMore,
     } = useQuery<ConversationsData>(GET_CONVERSATIONS)
 
@@ -31,14 +31,14 @@ export const ConversationsWidget: FC = () => {
     }, [subscribeToMore])
 
 
-    const hasConversations = conversationsData && conversationsData?.conversations.length > 0;
+    const hasConversations = data && data?.conversations.length > 0;
 
     return (
         <>
             <CreateConversation />
             {hasConversations && (
                 <ConversationsList
-                    conversations={conversationsData.conversations}
+                    conversations={data.conversations}
                 />
             )}
         </>
