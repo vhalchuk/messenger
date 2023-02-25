@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/button';
 import { Flex, Input, Stack, Text } from '@chakra-ui/react';
 import { type FC } from 'react';
-import { useCreateConversationForm } from '../lib/useCreateConversationForm';
+import { useCreateConversationForm } from '../model/useCreateConversationForm';
 import { Participants } from './Participants';
 import { UserSearchList } from './UserSearchList';
 
