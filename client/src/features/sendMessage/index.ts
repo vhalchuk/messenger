@@ -1,1 +1,1 @@
-export { useSendMessageAndUpdateCache } from './lib/useSendMessageAndUpdateCache';
+export { useSendMessageAndUpdateCache } from './model/useSendMessageAndUpdateCache';
