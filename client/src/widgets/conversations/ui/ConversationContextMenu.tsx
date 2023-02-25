@@ -1,5 +1,5 @@
-import { type FC } from 'react';
 import { Menu, MenuItem, MenuList } from '@chakra-ui/react';
+import { type FC } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';

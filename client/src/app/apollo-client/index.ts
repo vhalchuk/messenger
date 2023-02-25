@@ -1,9 +1,9 @@
 import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client';
-import { env } from '@/shared/env/client.mjs';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import { createClient } from 'graphql-ws';
 import { getSession } from 'next-auth/react';
+import { env } from '@/shared/env/client.mjs';
 
 const httpLink = new HttpLink({
   uri: env.NEXT_PUBLIC_API_URI,

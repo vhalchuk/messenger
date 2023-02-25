@@ -1,8 +1,8 @@
+import { Center } from '@chakra-ui/react';
 import { NextPage, NextPageContext } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import { SignInButton } from '@/features/signIn';
 import { CreateUsername } from '@/features/createUsername';
-import { Center } from '@chakra-ui/react';
+import { SignInButton } from '@/features/signIn';
 
 const Onboarding: NextPage = () => {
   const { data } = useSession();

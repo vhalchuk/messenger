@@ -1,16 +1,16 @@
-import React, { type FC, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Flex } from '@chakra-ui/react';
-import toast from 'react-hot-toast';
-import { MessageItem } from './MessageItem';
-import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import React, { type FC, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { GET_MESSAGES, MESSAGE_SENT } from '@/entities/message';
 import {
   MessagesData,
   MessagesSubscriptionData,
   MessagesVariables,
 } from '@/shared/types/messageTypes';
-import { GET_MESSAGES, MESSAGE_SENT } from '@/entities/message';
+import { MessageItem } from './MessageItem';
 
 export const Messages: FC = () => {
   const conversationId = useRouter().query.conversationId as string;

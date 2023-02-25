@@ -1,8 +1,8 @@
-import { type FC } from 'react';
-import { MessagePopulated } from '../../../../../server/src/util/types';
+import { Avatar, Box, Flex, Stack, Text } from '@chakra-ui/react';
 import { formatRelative } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
-import { Avatar, Box, Flex, Stack, Text } from '@chakra-ui/react';
+import { type FC } from 'react';
+import { MessagePopulated } from '../../../../../server/src/util/types';
 
 const formatRelativeLocale = {
   lastWeek: "eeee 'at' p",

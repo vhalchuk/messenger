@@ -1,15 +1,15 @@
-import { type FC, FormEventHandler, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
+import { Button } from '@chakra-ui/button';
+import { Input } from '@chakra-ui/input';
+import { Stack, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { type FC, FormEventHandler, useState } from 'react';
+import toast from 'react-hot-toast';
+import { CREATE_USERNAME } from '@/entities/user';
 import {
   CreateUsernameData,
   CreateUsernameVariables,
 } from '@/shared/types/userTypes';
-import { CREATE_USERNAME } from '@/entities/user';
-import toast from 'react-hot-toast';
-import { Stack, Text } from '@chakra-ui/react';
-import { Input } from '@chakra-ui/input';
-import { Button } from '@chakra-ui/button';
 
 export const CreateUsername: FC = () => {
   const router = useRouter();

@@ -1,6 +1,6 @@
-import { type FC, ReactNode } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { type FC, ReactNode } from 'react';
 
 type ColumnsLayoutComponent = {
   LeftColumn: FC<{ children: ReactNode }>;

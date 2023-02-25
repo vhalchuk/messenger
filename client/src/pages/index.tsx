@@ -1,8 +1,8 @@
 import type { NextPage, NextPageContext } from 'next';
 import { getSession } from 'next-auth/react';
-import { ColumnsLayout } from '@/shared/layout';
 import { ConversationsWidget } from '@/widgets/conversations/ui/ConversationsWidget';
 import { MessagesWidget } from '@/widgets/messages/ui/MessagesWidget';
+import { ColumnsLayout } from '@/shared/layout';
 
 const Home: NextPage = () => {
   return (

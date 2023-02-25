@@ -1,13 +1,13 @@
-import { type FC, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { ConversationsData } from '@/shared/types/conversationTypes';
+import { type FC, useEffect } from 'react';
+import { ConversationsList } from '@/widgets/conversations/ui/ConversationsList';
+import { CreateConversation } from '@/features/createConversation';
 import {
   CONVERSATION_CREATED,
   GET_CONVERSATIONS,
 } from '@/entities/conversation';
-import { CreateConversation } from '@/features/createConversation';
+import { ConversationsData } from '@/shared/types/conversationTypes';
 import { ConversationPopulated } from '../../../../../server/src/util/types';
-import { ConversationsList } from '@/widgets/conversations/ui/ConversationsList';
 
 export const ConversationsWidget: FC = () => {
   const { data, subscribeToMore } =

@@ -1,13 +1,13 @@
-import { type FC } from 'react';
 import { useQuery } from '@apollo/client';
 import { Button, Stack, Text } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { type FC } from 'react';
 import React from 'react';
+import { GET_CONVERSATIONS } from '@/entities/conversation';
 import { formatUsernames } from '@/entities/conversation/lib/formatUsernames';
 import { env } from '@/shared/env/client.mjs';
-import { useSession } from 'next-auth/react';
 import { ConversationsData } from '@/shared/types/conversationTypes';
-import { GET_CONVERSATIONS } from '@/entities/conversation';
 
 export const MessagesHeader: FC = () => {
   const router = useRouter();

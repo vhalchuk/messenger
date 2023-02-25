@@ -1,15 +1,15 @@
-import { type FC, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Box, Input } from '@chakra-ui/react';
 import { ObjectID } from 'bson';
-import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { type FC, useState } from 'react';
+import toast from 'react-hot-toast';
+import { GET_MESSAGES, SEND_MESSAGE } from '@/entities/message';
 import {
   MessagesData,
   SendMessageVariables,
 } from '@/shared/types/messageTypes';
-import { GET_MESSAGES, SEND_MESSAGE } from '@/entities/message';
 
 export const MessageInput: FC = () => {
   const conversationId = useRouter().query.conversationId as string;

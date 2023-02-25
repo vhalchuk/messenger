@@ -1,10 +1,10 @@
-import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
-import { Box, ChakraProvider } from '@chakra-ui/react';
-import { theme } from '@/app/chakra';
 import { ApolloProvider } from '@apollo/client';
-import { client } from '@/app/apollo-client';
+import { Box, ChakraProvider } from '@chakra-ui/react';
+import { SessionProvider } from 'next-auth/react';
+import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
+import { client } from '@/app/apollo-client';
+import { theme } from '@/app/chakra';
 
 export default function App({
   Component,

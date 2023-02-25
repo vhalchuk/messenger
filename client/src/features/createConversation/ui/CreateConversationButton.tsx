@@ -1,5 +1,5 @@
-import { type FC } from 'react';
 import { Button } from '@chakra-ui/button';
+import { type FC } from 'react';
 
 type CreateConversationButtonProps = {
   onClick: () => void;

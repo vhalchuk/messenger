@@ -1,7 +1,7 @@
-import { type FC } from 'react';
-import { Flex, Stack } from '@chakra-ui/react';
-import { CloseIcon } from '@/shared/icons/CloseIcon';
 import { Button } from '@chakra-ui/button';
+import { Flex, Stack } from '@chakra-ui/react';
+import { type FC } from 'react';
+import { CloseIcon } from '@/shared/icons/CloseIcon';
 import { SearchedUser } from '@/shared/types/userTypes';
 
 type ParticipantsProps = {

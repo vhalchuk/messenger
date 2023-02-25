@@ -1,8 +1,8 @@
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import prisma from '../../../shared/prisma';
 import { env } from '@/shared/env/server.mjs';
+import prisma from '../../../shared/prisma';
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),

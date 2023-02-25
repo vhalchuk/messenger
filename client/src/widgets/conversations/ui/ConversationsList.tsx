@@ -1,11 +1,11 @@
+import { Box } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { type FC } from 'react';
 import {
   ConversationPopulated,
   ParticipantPopulated,
 } from '../../../../../server/src/util/types';
-import { Box } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import { ConversationItem } from './ConversationItem';
 
 type ConversationsListProps = {

@@ -1,9 +1,9 @@
-import { type FC } from 'react';
-import { useRouter } from 'next/router';
 import { Flex } from '@chakra-ui/react';
-import { MessagesHeader } from './MessagesHeader';
-import { Messages } from './Messages';
+import { useRouter } from 'next/router';
+import { type FC } from 'react';
 import { MessageInput } from './MessageInput';
+import { Messages } from './Messages';
+import { MessagesHeader } from './MessagesHeader';
 
 export const MessagesWidget: FC = () => {
   const router = useRouter();

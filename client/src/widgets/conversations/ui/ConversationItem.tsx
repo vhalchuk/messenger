@@ -1,12 +1,12 @@
-import { FC, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { Avatar, Box, Flex, Stack, Text } from '@chakra-ui/react';
-import { ConversationContextMenu } from './ConversationContextMenu';
-import { GoPrimitiveDot } from 'react-icons/go';
-import { formatUsernames } from '@/entities/conversation';
 import { formatRelative } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
+import { useSession } from 'next-auth/react';
+import { FC, useState } from 'react';
+import { GoPrimitiveDot } from 'react-icons/go';
+import { formatUsernames } from '@/entities/conversation';
 import { ConversationPopulated } from '../../../../../server/src/util/types';
+import { ConversationContextMenu } from './ConversationContextMenu';
 
 const formatRelativeLocale = {
   lastWeek: 'eeee',

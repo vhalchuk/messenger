@@ -1,4 +1,5 @@
-import { type FC, FormEventHandler, useState } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { Button } from '@chakra-ui/button';
 import {
   Modal,
   ModalBody,
@@ -8,23 +9,22 @@ import {
   ModalOverlay,
 } from '@chakra-ui/modal';
 import { Input, Stack } from '@chakra-ui/react';
-import { Button } from '@chakra-ui/button';
 import { useRouter } from 'next/router';
-import {
-  SearchedUser,
-  SearchUsersData,
-  SearchUsersInput,
-} from '@/shared/types/userTypes';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { type FC, FormEventHandler, useState } from 'react';
+import toast from 'react-hot-toast';
+import { CREATE_CONVERSATION } from '@/entities/conversation';
 import { GET_USERS } from '@/entities/user';
 import {
   CreateConversationData,
   CreateConversationInput,
 } from '@/shared/types/conversationTypes';
-import { CREATE_CONVERSATION } from '@/entities/conversation';
-import toast from 'react-hot-toast';
-import { UserSearchList } from './UserSearchList';
+import {
+  SearchedUser,
+  SearchUsersData,
+  SearchUsersInput,
+} from '@/shared/types/userTypes';
 import { Participants } from './Participants';
+import { UserSearchList } from './UserSearchList';
 
 type CreateConversationModalProps = {
   isOpen: boolean;
