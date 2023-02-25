@@ -1,15 +1,10 @@
-import { useQuery } from '@apollo/client';
 import { Flex } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import React, { type FC, useEffect } from 'react';
+import React, { type FC } from 'react';
 import toast from 'react-hot-toast';
-import { GET_MESSAGES, MESSAGE_SENT } from '@/entities/message';
-import {
-  MessagesData,
-  MessagesSubscriptionData,
-  MessagesVariables,
-} from '@/shared/types/messageTypes';
+import { useMessagesQuery } from '@/entities/message';
+import { useMessagesSubscription } from '@/entities/message';
 import { MessageItem } from './MessageItem';
 
 export const Messages: FC = () => {
@@ -17,38 +12,16 @@ export const Messages: FC = () => {
   const { data: session } = useSession();
   const user = session!.user;
 
-  const { data, subscribeToMore } = useQuery<MessagesData, MessagesVariables>(
-    GET_MESSAGES,
-    {
-      variables: {
-        conversationId,
-      },
-      onError: ({ message }) => {
-        toast.error(message);
-      },
-    }
-  );
+  const { data } = useMessagesQuery({
+    variables: {
+      conversationId,
+    },
+    onError: ({ message }) => {
+      toast.error(message);
+    },
+  });
 
-  useEffect(() => {
-    return subscribeToMore({
-      document: MESSAGE_SENT,
-      variables: {
-        conversationId,
-      },
-      updateQuery: (prev, { subscriptionData }: MessagesSubscriptionData) => {
-        if (!subscriptionData.data) return prev;
-
-        const newMessage = subscriptionData.data.messageSent;
-
-        return Object.assign({}, prev, {
-          messages:
-            newMessage.sender.id === user.id
-              ? prev.messages
-              : [newMessage, ...prev.messages],
-        });
-      },
-    });
-  }, [conversationId, subscribeToMore, user.id]);
+  useMessagesSubscription(conversationId, user.id);
 
   return (
     <Flex direction="column" justify="flex-end" overflow="hidden">

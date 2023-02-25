@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useCreateConversationMutation } from '@/entities/conversation';
+import { useUsersLazyQuery } from '@/entities/user';
 import { SearchedUser } from '@/shared/types/userTypes';
-import { useCreateConversationMutation } from '../lib/useCreateConversationMutation';
-import { useUsersLazyQuery } from '../lib/useUsersLazyQuery';
 
 export const useCreateConversationForm = (onSuccess: () => void) => {
   const router = useRouter();

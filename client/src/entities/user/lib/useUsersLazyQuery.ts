@@ -1,6 +1,6 @@
 import { useLazyQuery } from '@apollo/client';
-import { GET_USERS } from '@/entities/user';
 import { SearchUsersData, SearchUsersInput } from '@/shared/types/userTypes';
+import { GET_USERS } from '../api/queries';
 
 export const useUsersLazyQuery = () => {
   return useLazyQuery<SearchUsersData, SearchUsersInput>(GET_USERS);

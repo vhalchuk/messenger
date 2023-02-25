@@ -1,2 +1,2 @@
-export { GET_USERS } from './api/queries';
-export { CREATE_USERNAME } from './api/mutations';
+export { useUsersLazyQuery } from './lib/useUsersLazyQuery';
+export { useCreateUsernameMutation } from './lib/useCreateUsernameMutation';

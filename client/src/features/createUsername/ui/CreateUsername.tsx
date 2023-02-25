@@ -1,23 +1,15 @@
-import { useMutation } from '@apollo/client';
 import { Button } from '@chakra-ui/button';
 import { Input } from '@chakra-ui/input';
 import { Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { type FC, FormEventHandler, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CREATE_USERNAME } from '@/entities/user';
-import {
-  CreateUsernameData,
-  CreateUsernameVariables,
-} from '@/shared/types/userTypes';
+import { useCreateUsernameMutation } from '@/entities/user';
 
 export const CreateUsername: FC = () => {
   const router = useRouter();
   const [username, setUsername] = useState('');
-  const [createUsername, { loading }] = useMutation<
-    CreateUsernameData,
-    CreateUsernameVariables
-  >(CREATE_USERNAME);
+  const [createUsername, { loading }] = useCreateUsernameMutation();
 
   const handleUsernameSubmit: FormEventHandler = async (e) => {
     e.preventDefault();

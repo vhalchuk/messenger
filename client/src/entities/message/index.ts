@@ -1,3 +1,3 @@
-export { GET_MESSAGES } from './api/queries';
-export { SEND_MESSAGE } from './api/mutations';
-export { MESSAGE_SENT } from './api/subscriptions';
+export { useMessagesQuery } from './lib/useMessagesQuery';
+export { useSendMessageAndUpdateCache } from './lib/useSendMessageAndUpdateCache';
+export { useMessagesSubscription } from './lib/useMessagesSubscription';

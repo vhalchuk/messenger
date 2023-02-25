@@ -1,19 +1,16 @@
-import { useQuery } from '@apollo/client';
 import { Button, Stack, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { type FC } from 'react';
-import React from 'react';
-import { GET_CONVERSATIONS } from '@/entities/conversation';
-import { formatUsernames } from '@/entities/conversation/lib/formatUsernames';
+import React, { type FC } from 'react';
+import { useConversationsQuery } from '@/entities/conversation';
+import { formatUsernames } from '@/entities/conversation';
 import { env } from '@/shared/env/client.mjs';
-import { ConversationsData } from '@/shared/types/conversationTypes';
 
 export const MessagesHeader: FC = () => {
   const router = useRouter();
   const { conversationId } = router.query;
   const { data: session } = useSession();
-  const { data, loading } = useQuery<ConversationsData>(GET_CONVERSATIONS);
+  const { data, loading } = useConversationsQuery();
 
   const conversation = data?.conversations.find(
     (conversation) => conversation.id === conversationId

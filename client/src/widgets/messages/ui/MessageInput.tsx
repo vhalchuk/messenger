@@ -1,15 +1,11 @@
-import { useMutation } from '@apollo/client';
 import { Box, Input } from '@chakra-ui/react';
 import { ObjectID } from 'bson';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
-import { GET_MESSAGES, SEND_MESSAGE } from '@/entities/message';
-import {
-  MessagesData,
-  SendMessageVariables,
-} from '@/shared/types/messageTypes';
+import { useSendMessageAndUpdateCache } from '@/entities/message';
+import { SendMessageVariables } from '@/shared/types/messageTypes';
 
 export const MessageInput: FC = () => {
   const conversationId = useRouter().query.conversationId as string;
@@ -18,60 +14,27 @@ export const MessageInput: FC = () => {
 
   const [messageBody, setMessageBody] = useState('');
 
-  const [sendMessage] = useMutation<
-    { sendMessage: boolean },
-    SendMessageVariables
-  >(SEND_MESSAGE);
+  const sendMessageAndUpdateCache = useSendMessageAndUpdateCache();
 
   const onSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      const { id: senderId } = user;
-      const newId = new ObjectID().toString();
       const newMessage: SendMessageVariables = {
-        id: newId,
-        senderId,
+        id: new ObjectID().toString(),
+        senderId: user.id,
         conversationId,
         body: messageBody,
       };
-      const { data, errors } = await sendMessage({
-        variables: {
-          ...newMessage,
-        },
-        optimisticResponse: {
-          sendMessage: true,
-        },
-        update: (cache) => {
-          setMessageBody('');
-          const existing = cache.readQuery<MessagesData>({
-            query: GET_MESSAGES,
-            variables: { conversationId },
-          }) as MessagesData;
+      const sender = {
+        id: user.id,
+        username: user.username!,
+      };
 
-          cache.writeQuery<MessagesData, { conversationId: string }>({
-            query: GET_MESSAGES,
-            variables: { conversationId },
-            data: {
-              ...existing,
-              messages: [
-                {
-                  id: newId,
-                  body: messageBody,
-                  senderId: user.id,
-                  conversationId,
-                  sender: {
-                    id: user.id,
-                    username: user.username!,
-                  },
-                  createdAt: new Date(Date.now()),
-                  updatedAt: new Date(Date.now()),
-                },
-                ...existing.messages,
-              ],
-            },
-          });
-        },
+      const { data, errors } = await sendMessageAndUpdateCache({
+        conversationId,
+        newMessage,
+        sender,
       });
 
       if (!data?.sendMessage || errors) {
@@ -80,6 +43,8 @@ export const MessageInput: FC = () => {
     } catch (error: any) {
       console.log('onSendMessage error', error);
       toast.error(error?.message);
+    } finally {
+      setMessageBody('');
     }
   };
 
