@@ -4,6 +4,16 @@ const layers = ['shared', 'entities', 'features', 'widgets', 'pages', 'app'];
 module.exports = {
   forbidden: [
     ...layers.map((layer) => ({
+      name: 'no-inner-index',
+      comment:
+        "Files from the same domain must not import from domain' index file",
+      severity: 'error',
+      from: { path: `^src/${layer}/([^/]+)/.+` },
+      to: {
+        path: `^src/${layer}/$1/index`,
+      },
+    })),
+    ...layers.map((layer) => ({
       name: 'not-public-interface',
       comment: 'Only import from index file is allowed from another domain',
       severity: 'error',
@@ -41,7 +51,7 @@ module.exports = {
     /* rules from the 'recommended' preset: */
     {
       name: 'no-circular',
-      severity: 'warn',
+      severity: 'error',
       comment:
         'This dependency is part of a circular relationship. You might want to revise ' +
         'your solution (i.e. use dependency inversion, make sure the modules have a single responsibility) ',
