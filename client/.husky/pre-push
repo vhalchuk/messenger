@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]
+then
+    # Run the command here that should only be run on main branch
+    cd client && npm run lint-deps
+fi
