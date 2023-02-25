@@ -1,5 +1,5 @@
 import { Avatar, Box, Flex, Stack, Text } from '@chakra-ui/react';
-import { type FC, MouseEventHandler } from 'react';
+import { type FC, MouseEventHandler, ReactNode } from 'react';
 import { GoPrimitiveDot } from 'react-icons/go';
 
 type ConversationCardProps = {
@@ -10,6 +10,7 @@ type ConversationCardProps = {
   title: string;
   message?: string;
   date: string;
+  contextMenu: ReactNode;
 };
 
 export const ConversationCard: FC<ConversationCardProps> = ({
@@ -20,6 +21,7 @@ export const ConversationCard: FC<ConversationCardProps> = ({
   title,
   message,
   date,
+  contextMenu,
 }) => {
   return (
     <Stack
@@ -35,6 +37,7 @@ export const ConversationCard: FC<ConversationCardProps> = ({
       onContextMenu={onContextMenu}
       position="relative"
     >
+      {contextMenu}
       <Flex position="absolute" left="-6px">
         {hasSeenLatestMessage === false && (
           <GoPrimitiveDot fontSize={18} color="#6B46C1" />

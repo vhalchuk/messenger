@@ -46,29 +46,29 @@ export const ConversationItem: FC<ConversationItemProps> = ({
   const currentUser = session?.user!;
 
   return (
-    <>
-      {showMenu && (
-        <ConversationContextMenu
-          isOpen={menuOpen}
-          onClose={() => setMenuOpen(false)}
-          conversationId={conversation.id}
-        />
-      )}
-      <ConversationCard
-        isSelected={isSelected}
-        onClick={onClick}
-        onContextMenu={handleContextMenu}
-        hasSeenLatestMessage={hasSeenLatestMessage}
-        title={formatUsernames(conversation.participants, currentUser.id)}
-        message={conversation.latestMessage?.body}
-        date={formatRelative(new Date(conversation.updatedAt), new Date(), {
-          locale: {
-            ...enUS,
-            formatRelative: (token) =>
-              formatRelativeLocale[token as keyof typeof formatRelativeLocale],
-          },
-        })}
-      />
-    </>
+    <ConversationCard
+      isSelected={isSelected}
+      onClick={onClick}
+      onContextMenu={handleContextMenu}
+      hasSeenLatestMessage={hasSeenLatestMessage}
+      title={formatUsernames(conversation.participants, currentUser.id)}
+      message={conversation.latestMessage?.body}
+      date={formatRelative(new Date(conversation.updatedAt), new Date(), {
+        locale: {
+          ...enUS,
+          formatRelative: (token) =>
+            formatRelativeLocale[token as keyof typeof formatRelativeLocale],
+        },
+      })}
+      contextMenu={
+        showMenu && (
+          <ConversationContextMenu
+            isOpen={menuOpen}
+            onClose={() => setMenuOpen(false)}
+            conversationId={conversation.id}
+          />
+        )
+      }
+    />
   );
 };
