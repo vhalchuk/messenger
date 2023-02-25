@@ -18,9 +18,6 @@ type ConversationItemProps = {
   onClick: () => void;
   hasSeenLatestMessage?: boolean;
   isSelected?: boolean;
-  onEditConversation?: () => void;
-  onDeleteConversation?: (conversationId: string) => void;
-  onLeaveConversation?: (conversation: ConversationPopulated) => void;
 };
 
 export const ConversationItem: FC<ConversationItemProps> = ({
@@ -28,9 +25,6 @@ export const ConversationItem: FC<ConversationItemProps> = ({
   isSelected,
   hasSeenLatestMessage,
   onClick,
-  onEditConversation,
-  onDeleteConversation,
-  onLeaveConversation,
 }) => {
   const { data: session } = useSession();
 
@@ -38,10 +32,9 @@ export const ConversationItem: FC<ConversationItemProps> = ({
 
   const handleContextMenu: MouseEventHandler = (event) => {
     event.preventDefault();
-  };
 
-  const showMenu =
-    onEditConversation && onDeleteConversation && onLeaveConversation;
+    setMenuOpen(true);
+  };
 
   const currentUser = session?.user!;
 
@@ -61,13 +54,11 @@ export const ConversationItem: FC<ConversationItemProps> = ({
         },
       })}
       contextMenu={
-        showMenu && (
-          <ConversationContextMenu
-            isOpen={menuOpen}
-            onClose={() => setMenuOpen(false)}
-            conversationId={conversation.id}
-          />
-        )
+        <ConversationContextMenu
+          isOpen={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          conversation={conversation}
+        />
       }
     />
   );

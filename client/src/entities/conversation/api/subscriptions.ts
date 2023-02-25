@@ -8,3 +8,23 @@ export const CONVERSATION_CREATED = gql`
         }
     }
 `;
+
+export const CONVERSATION_UPDATED = gql`
+    subscription ConversationUpdated {
+        conversationUpdated {
+            conversation {
+                ${conversationFields}
+            }
+            addedUserIds
+            removedUserIds
+        }
+    }
+`;
+
+export const CONVERSATION_DELETED = gql`
+  subscription ConversationDeleted {
+    conversationDeleted {
+      id
+    }
+  }
+`;
