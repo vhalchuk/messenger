@@ -1,6 +1,6 @@
 import { Box, Input } from '@chakra-ui/react';
 import { type FC } from 'react';
-import { useMessageInput } from '../lib/useMessageInput';
+import { useMessageInput } from '../model/useMessageInput';
 
 export const MessageInput: FC = () => {
   const { messageBody, setMessageBody, handleSend } = useMessageInput();
