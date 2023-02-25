@@ -1,5 +1,5 @@
 export { GET_MESSAGES } from './api/queries';
-export { useMessagesQuery } from './lib/useMessagesQuery';
-export { useSendMessageMutation } from './lib/useSendMessageMutation';
-export { useMessagesSubscription } from './lib/useMessagesSubscription';
+export { useMessagesQuery } from './model/useMessagesQuery';
+export { useSendMessageMutation } from './model/useSendMessageMutation';
+export { useMessagesSubscription } from './model/useMessagesSubscription';
 export * from './model/types';
