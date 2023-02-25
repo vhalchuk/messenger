@@ -30,6 +30,8 @@ export const useMessageInput = () => {
         username: user.username!,
       };
 
+      setMessageBody('');
+
       const { data, errors } = await sendMessageAndUpdateCache({
         conversationId,
         newMessage,
@@ -41,8 +43,6 @@ export const useMessageInput = () => {
       }
     } catch (error: any) {
       toast.error(error?.message);
-    } finally {
-      setMessageBody('');
     }
   };
 
