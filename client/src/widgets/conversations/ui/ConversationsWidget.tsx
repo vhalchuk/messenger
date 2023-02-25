@@ -1,7 +1,7 @@
 import { type FC } from 'react';
-import { useConversations } from '@/widgets/conversations/lib/useConversations';
-import { ConversationsList } from '@/widgets/conversations/ui/ConversationsList';
 import { CreateConversation } from '@/features/createConversation';
+import { useConversations } from '../lib/useConversations';
+import { ConversationsList } from '../ui/ConversationsList';
 
 export const ConversationsWidget: FC = () => {
   const conversations = useConversations();

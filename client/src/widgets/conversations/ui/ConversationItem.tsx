@@ -1,11 +1,9 @@
-import { Avatar, Box, Flex, Stack, Text } from '@chakra-ui/react';
 import { formatRelative } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import { useSession } from 'next-auth/react';
-import { FC, useState } from 'react';
-import { GoPrimitiveDot } from 'react-icons/go';
+import { FC, MouseEventHandler, useState } from 'react';
 import { ConversationPopulated } from '@server/util/types';
-import { formatUsernames } from '@/entities/conversation';
+import { ConversationCard, formatUsernames } from '@/entities/conversation';
 import { ConversationContextMenu } from './ConversationContextMenu';
 
 const formatRelativeLocale = {
@@ -38,13 +36,8 @@ export const ConversationItem: FC<ConversationItemProps> = ({
 
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent) => {
-    if (event.type === 'click') {
-      onClick();
-    } else if (event.type === 'contextmenu') {
-      event.preventDefault();
-      setMenuOpen(true);
-    }
+  const handleContextMenu: MouseEventHandler = (event) => {
+    event.preventDefault();
   };
 
   const showMenu =
@@ -53,19 +46,7 @@ export const ConversationItem: FC<ConversationItemProps> = ({
   const currentUser = session?.user!;
 
   return (
-    <Stack
-      direction="row"
-      align="center"
-      justify="space-between"
-      p={4}
-      cursor="pointer"
-      borderRadius={4}
-      bg={isSelected ? 'whiteAlpha.200' : 'none'}
-      _hover={{ bg: 'whiteAlpha.200' }}
-      onClick={handleClick}
-      onContextMenu={handleClick}
-      position="relative"
-    >
+    <>
       {showMenu && (
         <ConversationContextMenu
           isOpen={menuOpen}
@@ -73,47 +54,21 @@ export const ConversationItem: FC<ConversationItemProps> = ({
           conversationId={conversation.id}
         />
       )}
-      <Flex position="absolute" left="-6px">
-        {hasSeenLatestMessage === false && (
-          <GoPrimitiveDot fontSize={18} color="#6B46C1" />
-        )}
-      </Flex>
-      <Avatar />
-      <Flex justify="space-between" width="80%" height="100%">
-        <Flex direction="column" width="70%" height="100%">
-          <Text
-            fontWeight={600}
-            whiteSpace="nowrap"
-            overflow="hidden"
-            textOverflow="ellipsis"
-          >
-            {formatUsernames(conversation.participants, currentUser.id)}
-          </Text>
-          {conversation.latestMessage && (
-            <Box width="140%">
-              <Text
-                color="whiteAlpha.700"
-                whiteSpace="nowrap"
-                overflow="hidden"
-                textOverflow="ellipsis"
-              >
-                {conversation.latestMessage.body}
-              </Text>
-            </Box>
-          )}
-        </Flex>
-        <Text color="whiteAlpha.700" textAlign="right">
-          {formatRelative(new Date(conversation.updatedAt), new Date(), {
-            locale: {
-              ...enUS,
-              formatRelative: (token) =>
-                formatRelativeLocale[
-                  token as keyof typeof formatRelativeLocale
-                ],
-            },
-          })}
-        </Text>
-      </Flex>
-    </Stack>
+      <ConversationCard
+        isSelected={isSelected}
+        onClick={onClick}
+        onContextMenu={handleContextMenu}
+        hasSeenLatestMessage={hasSeenLatestMessage}
+        title={formatUsernames(conversation.participants, currentUser.id)}
+        message={conversation.latestMessage?.body}
+        date={formatRelative(new Date(conversation.updatedAt), new Date(), {
+          locale: {
+            ...enUS,
+            formatRelative: (token) =>
+              formatRelativeLocale[token as keyof typeof formatRelativeLocale],
+          },
+        })}
+      />
+    </>
   );
 };
