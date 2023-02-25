@@ -1,9 +1,9 @@
 import { useMutation } from '@apollo/client';
-import {
+import { CREATE_CONVERSATION } from '../api/mutations';
+import type {
   CreateConversationData,
   CreateConversationInput,
-} from '@/shared/types/conversationTypes';
-import { CREATE_CONVERSATION } from '../api/mutations';
+} from '../model/types';
 
 export const useCreateConversationMutation = () => {
   return useMutation<CreateConversationData, CreateConversationInput>(

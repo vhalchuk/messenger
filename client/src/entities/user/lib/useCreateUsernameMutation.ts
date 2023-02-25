@@ -1,9 +1,9 @@
 import { useMutation } from '@apollo/client';
-import {
+import { CREATE_USERNAME } from '../api/mutations';
+import type {
   CreateUsernameData,
   CreateUsernameVariables,
-} from '@/shared/types/userTypes';
-import { CREATE_USERNAME } from '../api/mutations';
+} from '../model/types';
 
 export const useCreateUsernameMutation = () => {
   return useMutation<CreateUsernameData, CreateUsernameVariables>(

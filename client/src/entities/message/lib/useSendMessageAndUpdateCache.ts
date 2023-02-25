@@ -1,8 +1,5 @@
-import {
-  MessagesData,
-  SendMessageVariables,
-} from '@/shared/types/messageTypes';
 import { GET_MESSAGES } from '../api/queries';
+import type { MessagesData, SendMessageVariables } from '../model/types';
 import { useSendMessageMutation } from './useSendMessageMutation';
 
 export const useSendMessageAndUpdateCache = () => {

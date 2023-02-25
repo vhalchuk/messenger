@@ -3,7 +3,7 @@ import { FormEventHandler, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useCreateConversationMutation } from '@/entities/conversation';
 import { useUsersLazyQuery } from '@/entities/user';
-import { SearchedUser } from '@/shared/types/userTypes';
+import { SearchedUser } from '@/entities/user';
 
 export const useCreateConversationForm = (onSuccess: () => void) => {
   const router = useRouter();

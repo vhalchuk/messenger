@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/button';
 import { Flex, Stack } from '@chakra-ui/react';
 import { type FC } from 'react';
+import type { SearchedUser } from '@/entities/user/model/types';
 import { CloseIcon } from '@/shared/icons/CloseIcon';
-import { SearchedUser } from '@/shared/types/userTypes';
 
 type ParticipantsProps = {
   participants: Array<SearchedUser>;

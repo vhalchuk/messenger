@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { MessagesSubscriptionData } from '@/shared/types/messageTypes';
 import { MESSAGE_SENT } from '../api/subscriptions';
+import type { MessagesSubscriptionData } from '../model/types';
 import { useMessagesQuery } from './useMessagesQuery';
 
 export const useMessagesSubscription = (

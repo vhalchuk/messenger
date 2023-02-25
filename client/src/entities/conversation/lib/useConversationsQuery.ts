@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { ConversationsData } from '@/shared/types/conversationTypes';
 import { GET_CONVERSATIONS } from '../api/queries';
+import type { ConversationsData } from '../model/types';
 
 export const useConversationsQuery = () => {
   return useQuery<ConversationsData>(GET_CONVERSATIONS);

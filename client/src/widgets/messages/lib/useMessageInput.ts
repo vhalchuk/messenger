@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendMessageAndUpdateCache } from '@/entities/message';
-import { SendMessageVariables } from '@/shared/types/messageTypes';
+import { SendMessageVariables } from '@/entities/message';
 
 export const useMessageInput = () => {
   const conversationId = useRouter().query.conversationId as string;

@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/button';
 import { Avatar, Flex, Stack, Text } from '@chakra-ui/react';
 import { type FC } from 'react';
-import { SearchedUser } from '@/shared/types/userTypes';
+import type { SearchedUser } from '@/entities/user/model/types';
 
 type UserSearchListProps = {
   users: SearchedUser[];
