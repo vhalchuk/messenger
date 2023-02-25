@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSendMessageAndUpdateCache } from '@/entities/message';
+import { useSendMessageAndUpdateCache } from '@/features/sendMessage';
 import { SendMessageVariables } from '@/entities/message';
 
 export const useMessageInput = () => {

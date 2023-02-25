@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write --ignore-unknown ."
+    "format": "prettier --write --ignore-unknown .",
+    "lint-deps": "npx depcruise --config .dependency-cruiser.js src",
+    "deps-graph": "npx depcruise src --include-only \"^src\" --config --output-type dot | dot -T svg > dependency-graph.svg"
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
@@ -38,6 +40,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "dependency-cruiser": "^12.10.0",
     "prettier": "2.8.4",
     "prisma": "^4.10.0"
   }

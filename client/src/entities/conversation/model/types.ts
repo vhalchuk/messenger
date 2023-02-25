@@ -9,6 +9,7 @@ export type CreateConversationData = {
     conversationId: string;
   };
 };
+
 export type CreateConversationInput = {
   participantIds: string[];
 };

@@ -3,8 +3,8 @@ import { Box, ChakraProvider } from '@chakra-ui/react';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
-import { apolloClient } from '@/app/apollo-client';
-import { theme } from '@/app/chakra';
+import { apolloClient } from './apollo-client';
+import { theme } from './chakra';
 
 export default function App({
   Component,

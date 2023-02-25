@@ -16,3 +16,6 @@
 
 # typescript
 next-env.d.ts
+
+# dependency graph
+dependency-graph.svg

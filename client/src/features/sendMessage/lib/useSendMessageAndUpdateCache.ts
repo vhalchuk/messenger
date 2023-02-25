@@ -1,6 +1,5 @@
-import { GET_MESSAGES } from '../api/queries';
-import type { MessagesData, SendMessageVariables } from '../model/types';
-import { useSendMessageMutation } from './useSendMessageMutation';
+import { useSendMessageMutation, GET_MESSAGES } from '@/entities/message';
+import type { MessagesData, SendMessageVariables } from '@/entities/message';
 
 export const useSendMessageAndUpdateCache = () => {
   const [sendMessage] = useSendMessageMutation();
