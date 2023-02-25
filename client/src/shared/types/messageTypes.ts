@@ -1,4 +1,4 @@
-import { MessagePopulated } from '../../../../server/src/util/types';
+import { MessagePopulated } from '@server/util/types';
 
 export interface MessagesData {
   messages: Array<MessagePopulated>;

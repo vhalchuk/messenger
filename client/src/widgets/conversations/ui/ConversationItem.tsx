@@ -4,8 +4,8 @@ import enUS from 'date-fns/locale/en-US';
 import { useSession } from 'next-auth/react';
 import { FC, useState } from 'react';
 import { GoPrimitiveDot } from 'react-icons/go';
+import { ConversationPopulated } from '@server/util/types';
 import { formatUsernames } from '@/entities/conversation';
-import { ConversationPopulated } from '../../../../../server/src/util/types';
 import { ConversationContextMenu } from './ConversationContextMenu';
 
 const formatRelativeLocale = {

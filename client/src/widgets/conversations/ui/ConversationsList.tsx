@@ -5,7 +5,7 @@ import { type FC } from 'react';
 import {
   ConversationPopulated,
   ParticipantPopulated,
-} from '../../../../../server/src/util/types';
+} from '@server/util/types';
 import { ConversationItem } from './ConversationItem';
 
 type ConversationsListProps = {

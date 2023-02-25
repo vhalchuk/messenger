@@ -1,4 +1,4 @@
-import { ConversationPopulated } from '../../../../server/src/util/types';
+import { ConversationPopulated } from '@server/util/types';
 
 export type ConversationsData = {
   conversations: ConversationPopulated[];

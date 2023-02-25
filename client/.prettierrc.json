@@ -10,6 +10,7 @@
   "arrowParens": "always",
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
+    "^@server/(.*)$",
     "^@/app/(.*)$",
     "^@/widgets/(.*)$",
     "^@/features/(.*)$",
