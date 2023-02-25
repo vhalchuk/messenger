@@ -1,6 +1,6 @@
 import { type FC, useState } from 'react';
-import { CreateConversationButton } from '@/features/createConversation/ui/CreateConversationButton';
-import { CreateConversationModal } from '@/features/createConversation/ui/CreateConversationModal';
+import { CreateConversationButton } from './CreateConversationButton';
+import { CreateConversationModal } from './CreateConversationModal';
 
 export const CreateConversation: FC = () => {
   const [isOpen, setIsOpen] = useState(false);

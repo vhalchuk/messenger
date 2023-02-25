@@ -16,14 +16,6 @@ export const UserSearchList: FC<UserSearchListProps> = ({
   onAddUser,
   onRemoveUser,
 }) => {
-  if (users.length === 0) {
-    return (
-      <Flex mt={6} justify="center">
-        <Text>No users found</Text>
-      </Flex>
-    );
-  }
-
   return (
     <Stack mt={6}>
       {users.map((user) => {
